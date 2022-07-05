@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row" ng-controller="Dashboard">
+    <div class="col-md-12 jumbotron searchArea">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for product">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+
+            </div>
+        </div>
+        <div class="col-md-12 text-muted searchFilterLabel ">
+            <i class="glyphicon glyphicon-filter"></i>  Filters
+        </div>
+
+        <div class="col-md-12">
+            <div class="well well-sm selectedFilters">
+                <span class="label label-default">{{header}}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Filters</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+      
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well well-sm clearfix" >
+                    <div class="pull-right">
+                        Sort:
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                {{productSort}} <span class="caret"></span>
+                            </button>
+
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="productSorter('Name')">Name</a></li>
+                                <li><a ng-click="productSorter('Description')">Description</a></li>
+                                <li><a ng-click="productSorter('Price')">Price</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="col-sm-4 col-md-3" ng-repeat="item in products | orderBy:productSort">
+                            <div class="thumbnail">
+                                <img src="{{item.Image}}" alt="{{item.Name}}" />
+                                <div class="caption">
+                                    <h4>{{item.Name}}</h4><h3>{{item.Price | currency:'Rs.'}}</h3>
+                                    <p>
+                                        <a href="#" class="btn btn-primary" role="button">Add</a>
+                                        <a href="#" class="btn btn-default" role="button">Wishlist</a>
+                                        <div>
+                                            {{item.Description|maxText}}
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="row well well-sm" style="margin-top:1%;">
+            <div class="col-md-12">
+                <h4>Comment</h4>
+                <hr />
+            </div>
+            <div class="col-md-12">
+                <div class="media"  ng-repeat="items in comments">
+                    <div class="media-left pull-left">
+                        <a href="#">
+                            <img class="media-object" src="~/Images/default-product-image.jpg" style="min-height:50px;max-width:50px;" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">by {{items.by}} on {{items.on}} </h4>
+
+                        <p>{{items.Comment}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form class="form-horizontal" novalidate name="commentForm" ng-submit="AddComment()" >
+                    <div class="input-group">
+                        <input type="text" autocomplete="off" class="form-control" name="comment" ng-model="Comment" placeholder="Add your comment" required ng-maxlength="50" abusingword>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" ng-disabled="commentForm.$invalid"><i class="glyphicon glyphicon-comment"></i> Add</button>
+                        </span>
+
+
+                    </div>
+                    <div ng-messages="commentForm.comment.$error" ng-show="!commentForm.comment.$pristine">
+                        <span ng-message="required"
+                              class="text-danger">Is Required</span>
+                        <span ng-message="maxlength"
+                              class="text-danger">Max length is 50</span>
+
+                        <span ng-message="abusingword"
+                              class="text-danger">Abusing words not allowed</span>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+  
+</div>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" ng-controller="productsController">
+    <div class="col-md-12 well well-sm" >
+        <h2>Add Products</h2>
+    </div>
+    <div class="col-md-10">
+        <form class="form-horizontal" novalidate name="product" ng-submit="Save()">           
+            <div class="form-group">
+                <label for="productid">Product ID:</label>
+                <input type="text" ng-model="product.Id" class="form-control" id="productid" placeholder="Product Id">
+            </div>
+            <div class="form-group">
+                <label for="productname">Name:</label>
+                <input type="text" ng-model="product.Name" class="form-control" id="productname" placeholder="Product Name">
+            </div>
+            <div class="form-group">
+                <label for="productdescription">Description:</label>
+                <input type="text" ng-model="product.Description" class="form-control" id="productdescription" placeholder="Product Description">
+            </div>
+            <div class="form-group">
+                <label for="productcategory">Category:</label>
+                <select id="productcategory" ng-model="subcategories" ng-options="category for (category, subcategory) in product.Categories" class="form-control">
+                    <option value=''>Select</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productsubcategory">Sub Category:</label>
+                <select id="productsubcategory" ng-disabled="!subcategories" ng-model="subcategory" class="form-control">
+                    <option value=''>Select</option>
+                    <option ng-repeat="subcategory in subcategories" value='{{subcategory}}'>{{subcategory}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productbrand">Brand:</label>
+                <input type="text" ng-model="product.Brand" class="form-control" id="productbrand" placeholder="Product Brand Name">
+            </div>
+
+            <div class="form-group">
+                <label for="productsize">Size:</label>
+                <input type="text" ng-model="product.Size" class="form-control" id="productsize" placeholder="Product Size">
+            </div>
+
+            <div class="form-group">
+                <label for="productColors">Colors:</label>
+                <input type="text" ng-model="product.Colors" class="form-control" id="productColors" placeholder="Product Colors">
+            </div>
+
+
+            <div class="form-group">
+                <label for="productprice">Price:</label>
+                <input type="text" ng-model="product.Price | currency:'Rs.'" class="form-control" id="productprice" placeholder="Product Price">
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+    </div>
+
+
+
+</div>
